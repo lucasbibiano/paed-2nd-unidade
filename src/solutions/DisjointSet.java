@@ -1,3 +1,4 @@
+package solutions;
 import java.util.Scanner;
 
 public class DisjointSet {
@@ -24,7 +25,7 @@ public class DisjointSet {
 	
 	public DisjointSet getRepresentative() {
 		DisjointSet lastRep = this;
-				
+		
 		while (representative.getKey() != lastRep.getKey()) {
 			lastRep = representative;
 			setRepresentative(representative.getRepresentative());
