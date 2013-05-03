@@ -1,5 +1,5 @@
 package solutions;
-import java.util.Scanner;
+
 
 public class DisjointSet {
 	private DisjointSet representative;
@@ -44,38 +44,5 @@ public class DisjointSet {
 
 	public void setKey(int key) {
 		this.key = key;
-	}
-	
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		
-		int n = in.nextInt();
-		in.nextLine();
-		
-		DisjointSet[] sets = new DisjointSet[n];
-		
-		for (int i = 0; i < n; i++)	{
-			sets[i] = new DisjointSet(i);
-		}
-		
-		while (in.hasNextLine()) {
-			String line = in.nextLine();
-						
-			String[] split = line.split(" ");
-			
-			String command = split[0];
-			int param1 = Integer.parseInt(split[1]);
-			int param2 = Integer.parseInt(split[2]);
-
-			if (command.equals("compare")) {
-				System.out.println(sets[param1].compare(sets[param2]));
-			}
-			else if (command.equals("union")) {
-				System.out.println("-");
-				sets[param1].union(sets[param2]);
-			}	
-		}
-		
-		in.close();
 	}
 }
