@@ -25,9 +25,31 @@ public class Heap {
 		this.type = type;
 	}
 	
+	public Node getRoot(){
+		return nodes.get(0);
+	}
+	
+	public Node getLast(){
+		return nodes.get(nodes.size());
+	}
+	
+	private void removeLast(){
+		nodes.remove(nodes.size());
+	}
+	
+	public void setRoot(Node node){
+		nodes.set(0, node);
+	}
+	
 	public Node extract(){
-		//extrair o root
-		Node extracted = nodes.get(0);
+		Node extracted = getRoot();
+		Node last = getLast();
+		
+		removeLast();
+		setRoot(last);
+		
+		//TODO
+		//aplicar max ou min heapfy no vetor de nos
 		
 		return extracted;
 	}
