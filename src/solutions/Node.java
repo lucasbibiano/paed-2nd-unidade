@@ -1,3 +1,4 @@
+package solutions;
 public class Node<T> {
 
 	private T value;
