@@ -1,6 +1,10 @@
+<<<<<<< HEAD:src/solutions/DisjointSet.java
+package solutions;
+=======
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+>>>>>>> cef6af066ae50b89ae31c7ff142a48f3921ff435:src/DisjointSet.java
 import java.util.Scanner;
 
 public class DisjointSet {
@@ -27,7 +31,7 @@ public class DisjointSet {
 	
 	public DisjointSet getRepresentative() {
 		DisjointSet lastRep = this;
-				
+		
 		while (representative.getKey() != lastRep.getKey()) {
 			lastRep = representative;
 			setRepresentative(representative.getRepresentative());
