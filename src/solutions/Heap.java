@@ -41,6 +41,54 @@ public class Heap {
 		nodes.set(0, node);
 	}
 	
+	public Node getParent(int index){
+		return nodes.get(index/2);
+	}
+	
+	public void swap(Node node, Node parent){
+		int indexNode = nodes.indexOf(node);
+		nodes.set(nodes.indexOf(parent), node);
+		nodes.set(indexNode, parent);
+	}
+	
+	private void minClimber(Node node){
+		if(getRoot() == node)
+			return;
+		
+		while(getParent(nodes.indexOf(node)).getValue() > node.getValue()){
+			swap(node, getParent(nodes.indexOf(node)));
+		}
+	}
+	
+	private void maxClimber(Node node){
+		if(getRoot() == node)
+			return;
+		
+		while(getParent(nodes.indexOf(node)).getValue() < node.getValue()){
+			swap(node, getParent(nodes.indexOf(node)));
+		}
+	}
+	
+	public boolean search(int value){
+		for (Node node : nodes) {
+			if(node.getValue() == value)
+				return true;
+		}
+		return false;
+	}
+	
+	public void insert(Node node){
+		if(search(node.getValue()))
+			return;
+		
+		nodes.add(node);
+		
+		if(type == Type.MIN)
+			minClimber(node);
+		else
+			maxClimber(node);
+	}
+	
 	public Node extract(){
 		Node extracted = getRoot();
 		Node last = getLast();
