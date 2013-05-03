@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class DisjointSet {
@@ -46,9 +49,18 @@ public class DisjointSet {
 	}
 	
 	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
+		Scanner in = null;
+		try {
+			in = new Scanner(new File("tests/conjuntos/conjuntos1.in"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		int n = in.nextInt();
+		
+		PrintStream out = System.out;
+		
 		System.out.println("-");
 		in.nextLine();
 		
