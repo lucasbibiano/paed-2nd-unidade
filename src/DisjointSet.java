@@ -49,6 +49,7 @@ public class DisjointSet {
 		Scanner in = new Scanner(System.in);
 		
 		int n = in.nextInt();
+		System.out.println("-");
 		in.nextLine();
 		
 		DisjointSet[] sets = new DisjointSet[n];
