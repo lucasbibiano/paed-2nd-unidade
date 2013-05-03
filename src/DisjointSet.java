@@ -1,33 +1,39 @@
 import java.util.Scanner;
 
-
 public class DisjointSet {
-	private int representative;
+	private DisjointSet representative;
 	private int key;
 
 	public DisjointSet(int key) {
-		setRepresentative(key);
+		setRepresentative(this);
 		setKey(key);
 	}
 	
-	public DisjointSet(int representative, int key) {
+	public DisjointSet(DisjointSet representative, int key) {
 		setRepresentative(representative);
 		setKey(key);
 	}
 	
 	public void union(DisjointSet other) {
-		setRepresentative(other.getRepresentative());
+		this.getRepresentative().setRepresentative(other.getRepresentative());
 	}
 	
 	public boolean compare(DisjointSet other) {
-		return this.getRepresentative() == other.getRepresentative();
+		return this.getRepresentative().getKey() == other.getRepresentative().getKey();
 	}
 	
-	public int getRepresentative() {
+	public DisjointSet getRepresentative() {
+		DisjointSet lastRep = this;
+				
+		while (representative.getKey() != lastRep.getKey()) {
+			lastRep = representative;
+			setRepresentative(representative.getRepresentative());
+		}
+		
 		return representative;
 	}
 
-	public void setRepresentative(int representative) {
+	public void setRepresentative(DisjointSet representative) {
 		this.representative = representative;
 	}
 
@@ -66,7 +72,7 @@ public class DisjointSet {
 			else if (command.equals("union")) {
 				System.out.println("-");
 				sets[param1].union(sets[param2]);
-			}
+			}	
 		}
 		
 		in.close();
