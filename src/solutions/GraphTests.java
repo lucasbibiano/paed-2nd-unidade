@@ -11,13 +11,13 @@ import tests.RunTests;
 import tests.Testable;
 import utils.FileUtilities;
 
-public class DisjointSetTests implements Testable {
+public class GraphTests implements Testable {
 
 	@Override
 	public File generateOutput(File input) throws IOException {
 		Scanner in = new Scanner(input);
 		
-		File file = new File("tests/conjuntos/" + 
+		File file = new File("tests/grafos/" + 
 			FileUtilities.stripExtension(input.getName()) + ".out.ours");
 		
 		PrintStream fileStream = new PrintStream(new BufferedOutputStream(
@@ -28,11 +28,7 @@ public class DisjointSetTests implements Testable {
 		
 		fileStream.println("-");
 		
-		DisjointSet[] sets = new DisjointSet[n];
-		
-		for (int i = 0; i < n; i++)	{
-			sets[i] = new DisjointSet(i);
-		}
+		Graph graph = new Graph(n);
 		
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
@@ -43,13 +39,17 @@ public class DisjointSetTests implements Testable {
 			int param1 = Integer.parseInt(split[1]);
 			int param2 = Integer.parseInt(split[2]);
 
-			if (command.equals("compare")) {
-				fileStream.println(sets[param1].compare(sets[param2]));
-			}
-			else if (command.equals("union")) {
+			if (command.equals("edge")) {
 				fileStream.println("-");
-				sets[param1].union(sets[param2]);
+				graph.addEdge(param1, param2);
+				graph.addEdge(param2, param1);
+			}
+			else if (command.equals("shortest")) {
+				fileStream.println(graph.shortest(param1, param2));
 			}	
+			else if (command.equals("path")) {
+				fileStream.println(graph.path(param1, param2));
+			}
 		}
 		
 		in.close();
@@ -59,9 +59,9 @@ public class DisjointSetTests implements Testable {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("CONJUNTOS\n======================\n\n");
+		System.out.println("GRAFOS\n======================\n\n");
 		
-		RunTests tests = new RunTests(new DisjointSetTests(), "conjuntos");
+		RunTests tests = new RunTests(new GraphTests(), "grafos");
 		
 		try {
 			tests.runTests();
