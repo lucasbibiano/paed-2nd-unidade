@@ -2,27 +2,18 @@ package solutions;
 
 import java.util.ArrayList;
 
-public class Heap {
+public abstract class Heap {
 
-	private ArrayList<Node> nodes;
-	private Type type;
+	protected ArrayList<Node> nodes;
 	
-	private enum Type { MAX, MIN };
-	public static final Type MIN = Type.MIN;
-	public static final Type MAX = Type.MAX;
-	
-	public Heap(int id, int value, Type type){
+	public Heap(int id, int value){
 		this.nodes = new ArrayList<Node>();
 		this.nodes.add(new Node(id, value));
-		
-		this.type = type;
 	}
 	
-	public Heap(Node node, Type type){
+	public Heap(Node node){
 		this.nodes = new ArrayList<Node>();
 		this.nodes.add(node);
-		
-		this.type = type;
 	}
 	
 	public Node getRoot(){
@@ -51,23 +42,7 @@ public class Heap {
 		nodes.set(indexNode, parent);
 	}
 	
-	private void minClimber(Node node){
-		if(getRoot() == node)
-			return;
-		
-		while(getParent(nodes.indexOf(node)).getValue() > node.getValue()){
-			swap(node, getParent(nodes.indexOf(node)));
-		}
-	}
-	
-	private void maxClimber(Node node){
-		if(getRoot() == node)
-			return;
-		
-		while(getParent(nodes.indexOf(node)).getValue() < node.getValue()){
-			swap(node, getParent(nodes.indexOf(node)));
-		}
-	}
+	protected abstract void climber(Node node);
 	
 	public boolean search(int value){
 		for (Node node : nodes) {
@@ -83,10 +58,7 @@ public class Heap {
 		
 		nodes.add(node);
 		
-		if(type == Type.MIN)
-			minClimber(node);
-		else
-			maxClimber(node);
+		climber(node);
 	}
 	
 	public Node extract(){
