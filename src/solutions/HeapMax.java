@@ -18,4 +18,11 @@ public class HeapMax extends Heap {
 			swap(node, getParent(nodes.indexOf(node)));
 		}
 	}
+	
+	protected Node appropriateNode(Node nodeA, Node nodeB) {
+		if(nodeA.getValue() > nodeB.getValue())
+			return nodeA;
+		else 
+			return nodeB;
+	}
 }
