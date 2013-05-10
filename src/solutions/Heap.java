@@ -114,10 +114,21 @@ public abstract class Heap {
 		return extracted;
 	}
 	
+	public void print(){
+		for (Node node : nodes) {
+			System.out.println(node.getId() + "::" + node.getValue());	
+		}
+	}
+	
 	public static void main(String[] args) {
 
+		Heap heapinho = new HeapMax(1,1);
 		
+		for (int i=2; i<12; i++){
+			heapinho.insert(new Node(i, i));
+		}
 		
+		heapinho.print();
 	}
 
 }
