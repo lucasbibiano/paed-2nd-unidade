@@ -2,6 +2,10 @@ package solutions;
 
 public class HeapMax extends Heap {
 
+	public HeapMax(){
+		super();
+	}
+	
 	public HeapMax(int id, int value){
 		super(id, value);
 	}

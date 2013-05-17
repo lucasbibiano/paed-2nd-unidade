@@ -2,6 +2,10 @@ package solutions;
 
 public class HeapMin extends Heap {
 
+	public HeapMin(){
+		super();
+	}
+	
 	public HeapMin(int id, int value){
 		super(id, value);
 	}

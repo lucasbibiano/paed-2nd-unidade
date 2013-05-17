@@ -6,6 +6,10 @@ public abstract class Heap<T> {
 
 	protected ArrayList<Node<T>> nodes;
 	
+	public Heap(){
+		this.nodes = new ArrayList<Node<T>>();
+	}
+	
 	public Heap(int id, int value){
 		this.nodes = new ArrayList<Node<T>>();
 		this.nodes.add(new Node(id, value));
@@ -25,11 +29,11 @@ public abstract class Heap<T> {
 	}
 	
 	public Node<T> getLast(){
-		return nodes.get(nodes.size());
+		return nodes.get(nodes.size()-1);
 	}
 	
 	private void removeLast(){
-		nodes.remove(nodes.size());
+		nodes.remove(nodes.size()-1);
 	}
 	
 	public void setRoot(Node<T> node){
@@ -110,31 +114,43 @@ public abstract class Heap<T> {
 		if(search(node.getValue()))
 			return;
 		
+		node.setPosition(nodes.size());
 		nodes.add(node);
 		
 		climber(node);
 	}
 	
 	public Node<T> extract(){
+		int size = nodes.size();
+		
+		if(size == 0)
+			return null; 
+		else if (size == 1){
+			Node<T> extracted = getRoot();
+			removeLast();
+			return extracted;
+		}
+		
 		Node<T> extracted = getRoot();
 		Node<T> last = getLast();
-		
+
 		removeLast();
-		setRoot(last);
 		
+		setRoot(last);
 		heapfy(getRoot());
 		
 		return extracted;
 	}
 	
-	public void update(int id, T value){
+	public Node update(int id, T value){
 		Node<T> find = searchId(id);
 		
 		if (find == null)
-			return;
+			return null;
 		
 		find.setValue(value);
 		climber(find);
+		return find;
 	}
 	
 	public void print(){
@@ -142,16 +158,4 @@ public abstract class Heap<T> {
 			System.out.println("id:" + node.getId() + "|value:" + node.getValue() + "|position:" + node.getPosition());	
 		}
 	}
-	
-	public static void main(String[] args) {
-
-		Heap heapinho = new HeapMax(1,1);
-		
-		for (int i=2; i<12; i++){
-			heapinho.insert(new Node(i, i));
-		}
-		
-		heapinho.print();
-	}
-
 }
