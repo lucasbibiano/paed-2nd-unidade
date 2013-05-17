@@ -65,7 +65,9 @@ public class GraphTests implements Testable {
 		
 		try {
 			tests.runTests();
-		} catch (IOException | InterruptedException e) {
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
