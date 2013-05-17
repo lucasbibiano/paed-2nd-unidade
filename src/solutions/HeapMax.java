@@ -14,13 +14,13 @@ public class HeapMax extends Heap {
 		if(getRoot() == node)
 			return;
 		
-		while(getParent(nodes.indexOf(node)).getValue() < node.getValue()){
+		while(getParent(node.getPosition()).compareTo(node.getValue()) < 0){
 			swap(node, getParent(nodes.indexOf(node)));
 		}
 	}
 	
 	protected Node appropriateNode(Node nodeA, Node nodeB) {
-		if(nodeA.getValue() > nodeB.getValue())
+		if(nodeA.compareTo(nodeB.getValue()) > 0)
 			return nodeA;
 		else 
 			return nodeB;
