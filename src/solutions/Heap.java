@@ -80,9 +80,14 @@ public abstract class Heap<T> {
 	}
 	
 	public void swap(Node<T> node, Node<T> parent){
-		int indexNode = nodes.indexOf(node);
-		nodes.set(nodes.indexOf(parent), node);
+		int indexNode = node.getPosition();
+		int indexParent = parent.getPosition();
+		
+		nodes.set(indexParent, node);
 		nodes.set(indexNode, parent);
+		
+		node.setPosition(indexParent);
+		parent.setPosition(indexNode);
 	}
 	
 	public boolean search(T value){
@@ -91,6 +96,14 @@ public abstract class Heap<T> {
 				return true;
 		}
 		return false;
+	}
+	
+	public Node<T> searchId(int id){
+		for (Node<T> node : nodes) {
+			if(node.getId() == id)
+				return node;
+		}
+		return null;
 	}
 	
 	public void insert(Node<T> node){
@@ -114,13 +127,19 @@ public abstract class Heap<T> {
 		return extracted;
 	}
 	
-	public void update(int id){
+	public void update(int id, T value){
+		Node<T> find = searchId(id);
 		
+		if (find == null)
+			return;
+		
+		find.setValue(value);
+		climber(find);
 	}
 	
 	public void print(){
 		for (Node<T> node : nodes) {
-			System.out.println(node.getId() + "::" + node.getValue());	
+			System.out.println("id:" + node.getId() + "|value:" + node.getValue() + "|position:" + node.getPosition());	
 		}
 	}
 	
