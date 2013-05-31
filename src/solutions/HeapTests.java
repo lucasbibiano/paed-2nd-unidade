@@ -37,7 +37,7 @@ public class HeapTests implements Testable {
 			
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
-						
+					System.out.println(line);
 			String[] split = line.split(" ");
 			
 			String command = split[0];

@@ -111,12 +111,12 @@ public abstract class Heap<T> {
 	}
 	
 	public void insert(Node<T> node){
-		if(search(node.getValue()))
+		if(searchId(node.getId()) == null)
 			return;
-		
+
 		node.setPosition(nodes.size());
 		nodes.add(node);
-		
+
 		climber(node);
 	}
 	
