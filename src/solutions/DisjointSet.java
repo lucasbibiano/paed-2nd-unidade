@@ -4,6 +4,7 @@ package solutions;
 public class DisjointSet {
 	private DisjointSet representative;
 	private int key;
+	private int order;
 
 	public DisjointSet(int key) {
 		setRepresentative(this);
@@ -16,7 +17,19 @@ public class DisjointSet {
 	}
 	
 	public void union(DisjointSet other) {
-		this.getRepresentative().setRepresentative(other.getRepresentative());
+		if (this.getOrder() > other.getOrder() ) {
+			this.getRepresentative().setRepresentative(other.getRepresentative());
+			other.getRepresentative().setOrder(this.getOrder());			
+		}
+		else{
+			other.getRepresentative().setRepresentative(this.getRepresentative());
+			this.getRepresentative().setOrder(other.getOrder());
+		}		
+		
+		if (this.getOrder() == other.getOrder() ){
+			this.getRepresentative().increaseOrder();
+			other.getRepresentative().increaseOrder();
+		}
 	}
 	
 	public boolean compare(DisjointSet other) {
@@ -44,5 +57,20 @@ public class DisjointSet {
 
 	public void setKey(int key) {
 		this.key = key;
+	}
+
+	public int getOrder() {
+		if (this.getRepresentative() == this){
+			return this.order;
+		}
+		else return this.getRepresentative().getOrder();		
+	}
+
+	public void setOrder(int order){
+		this.order=order;
+	}
+	
+	public void increaseOrder() {
+		this.order++;
 	}
 }
