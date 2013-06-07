@@ -19,6 +19,10 @@ public abstract class HeapRevenge<T> {
 		initializeHeap();
 	}
 	
+	public boolean isEmpty() {
+		return heapArray.size() <= 1;
+	}
+	
 	public abstract int climb();
 	public abstract void initializeHeap();
 	public abstract void heapfy(int i);

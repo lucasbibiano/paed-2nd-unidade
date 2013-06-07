@@ -8,7 +8,6 @@ import java.util.Stack;
 
 import org.javatuples.Pair;
 
-
 public class GraphListRevenge {
 	private Node[] nodes;
 	
@@ -32,11 +31,11 @@ public class GraphListRevenge {
 			costs[k] = 0;
 		}
 		
-		Stack<Node> queue = new Stack<Node>();
-		queue.add(nodes[i]);
+		Stack<Node> stack = new Stack<Node>();
+		stack.add(nodes[i]);
 		
-		while (!queue.isEmpty()) {
-			Node node = queue.pop();
+		while (!stack.isEmpty()) {
+			Node node = stack.pop();
 			
 			visited[node.i] = true;			
 			
@@ -63,9 +62,9 @@ public class GraphListRevenge {
 					continue;
 				
 				predecessors[c.otherNode] = node.i;
-				costs[c.otherNode] = costs[node.i] + 1;
+				costs[c.otherNode] = costs[node.i] + c.cost;
 
-				queue.add(nodes[c.otherNode]);
+				stack.add(nodes[c.otherNode]);
 			}
 		}
 		
@@ -115,9 +114,61 @@ public class GraphListRevenge {
 					continue;
 				
 				predecessors[c.otherNode] = node.i;
-				costs[c.otherNode] = costs[node.i] + 1;
+				costs[c.otherNode] = costs[node.i] + c.cost;
 
 				queue.add(nodes[c.otherNode]);
+			}
+		}
+		
+		return new Pair<Integer, List<Integer>>(costs[j], result);
+	}
+	
+	public Pair<Integer, List<Integer>> dijkstra(int i, int j) {
+		boolean[] visited = new boolean[nodes.length];
+		int[] predecessors = new int [nodes.length];
+		int[] costs = new int[nodes.length];
+		
+		List<Integer> result = new ArrayList<Integer>();
+		
+		for (int k = 0; k < nodes.length; k++) {
+			predecessors[k] = k;
+			costs[k] = 0;
+		}
+		
+		HeapMinRevenge<Node> heap = new HeapMinRevenge<Node>();
+		heap.insert(nodes[i], 0);
+		
+		while (!heap.isEmpty()) {
+			Node node = heap.extract().getValue1();
+			
+			visited[node.i] = true;			
+			
+			if (node.i == j) {
+				int l = 0;
+				int[] path = new int[nodes.length];
+				
+				path[l++] = j;
+				
+				while (predecessors[l - 1] != predecessors[l - 1]) {
+					path[l++] = predecessors[l - 1];
+				}
+				
+				path[l] = i;
+				
+				for (; l >= 0; l--)
+					result.add(path[l]);
+				
+				return new Pair<Integer, List<Integer>>(costs[j], result);
+			}
+			
+			for (Connection c: node.adjacencyList) {
+				if (visited[c.otherNode])
+					continue;
+				
+				predecessors[c.otherNode] = node.i;
+				costs[c.otherNode] = costs[node.i] + c.cost;
+
+				heap.insert(nodes[c.otherNode], costs[c.otherNode]);
 			}
 		}
 		

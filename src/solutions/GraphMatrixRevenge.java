@@ -59,7 +59,7 @@ public class GraphMatrixRevenge {
 					continue;
 				
 				predecessors[k] = node;
-				costs[k] = costs[node] + 1;
+				costs[k] = costs[node] + adjacencyMatrix[node][k];
 
 				queue.add(k);
 			}
@@ -111,9 +111,61 @@ public class GraphMatrixRevenge {
 					continue;
 				
 				predecessors[k] = node;
-				costs[k] = costs[node] + 1;
+				costs[k] = costs[node] + adjacencyMatrix[node][k];
 
 				queue.add(k);
+			}
+		}
+		
+		return new Pair<Integer, List<Integer>>(costs[j], result);
+	}
+	
+	public Pair<Integer, List<Integer>> dijkstra(int i, int j) {
+		boolean[] visited = new boolean[adjacencyMatrix.length];
+		int[] predecessors = new int [adjacencyMatrix.length];
+		int[] costs = new int[adjacencyMatrix.length];
+		
+		List<Integer> result = new ArrayList<Integer>();
+		
+		for (int k = 0; k < adjacencyMatrix.length; k++) {
+			predecessors[k] = k;
+			costs[k] = 0;
+		}
+		
+		HeapMinRevenge<Integer> heap = new HeapMinRevenge<Integer>();
+		heap.insert(i, costs[i]);
+		
+		while (!heap.isEmpty()) {
+			int node = heap.extract().getValue0();
+			
+			visited[node] = true;			
+			
+			if (node == j) {
+				int l = 0;
+				int[] path = new int[adjacencyMatrix.length];
+				
+				path[l++] = j;
+				
+				while (predecessors[l - 1] != predecessors[l - 1]) {
+					path[l++] = predecessors[l - 1];
+				}
+				
+				path[l] = i;
+				
+				for (; l >= 0; l--)
+					result.add(path[l]);
+				
+				return new Pair<Integer, List<Integer>>(costs[j], result);
+			}
+			
+			for (int k = 0; k < adjacencyMatrix.length; k++) {
+				if (visited[k] || adjacencyMatrix[node][k] == 0)
+					continue;
+				
+				predecessors[k] = node;
+				costs[k] = costs[node] + adjacencyMatrix[node][k];
+
+				heap.insert(k, costs[k]);
 			}
 		}
 		
