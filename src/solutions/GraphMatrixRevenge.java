@@ -9,12 +9,10 @@ import java.util.Stack;
 import org.javatuples.Pair;
 
 
-public class GraphRevenge {
-	private List<Edge> edges;
+public class GraphMatrixRevenge {
 	private int[][] adjacencyMatrix;
 	
-	public GraphRevenge(int nNodes) {
-		edges = new LinkedList<Edge>();
+	public GraphMatrixRevenge(int nNodes) {
 		adjacencyMatrix = new int[nNodes][nNodes];
 	}
 	
@@ -123,17 +121,11 @@ public class GraphRevenge {
 	}
 	
 	public void addEdge(int i, int j) {
-		edges.add(new Edge(i, j, 1));
 		adjacencyMatrix[i][j] = 1;
 	}
 	
 	public void addEdge(int i, int j, int cost) {
-		edges.add(new Edge(i, j, cost));
 		adjacencyMatrix[i][j] = cost;
-	}
-	
-	public List<Edge> getEdges() {
-		return edges;
 	}
 	
 	private class Node {

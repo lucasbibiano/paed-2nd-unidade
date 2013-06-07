@@ -31,7 +31,7 @@ public class GraphTests implements Testable {
 		
 		fileStream.println("-");
 		
-		GraphRevenge graph = new GraphRevenge(n);
+		GraphListRevenge graph = new GraphListRevenge(n);
 		
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
