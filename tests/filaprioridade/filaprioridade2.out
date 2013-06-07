@@ -156,7 +156,7 @@ empty
 112 26
 -
 -
-0 0
+137 8
 68 0
 -
 190 36
@@ -603,8 +603,8 @@ empty
 91 24
 empty
 empty
-notinserted
-empty
+-
+137 45
 empty
 -
 -
@@ -1180,8 +1180,8 @@ empty
 -
 -
 104 27
-notinserted
-58 23
+-
+137 38
 -
 -
 -
@@ -1191,7 +1191,7 @@ notinserted
 notupdated
 40 43
 17 40
-empty
+58 23
 -
 65 17
 empty
@@ -1210,9 +1210,9 @@ empty
 -
 -
 143 18
-notinserted
+-
+137 15
 76 0
-empty
 empty
 -
 -
@@ -1368,11 +1368,11 @@ empty
 -
 8 37
 126 19
-notinserted
 -
+-
+137 17
 33 12
 138 9
-13 0
 -
 34 15
 -
@@ -1385,7 +1385,7 @@ notinserted
 26 25
 4 14
 93 11
-empty
+13 0
 empty
 empty
 empty
@@ -1523,14 +1523,14 @@ empty
 -
 -
 -
-notinserted
+-
 66 46
 2 28
 -
 56 47
-58 15
+137 17
 -
-67 11
+58 15
 -
 -
 -
@@ -1540,11 +1540,11 @@ notinserted
 157 40
 170 37
 36 35
-59 11
+67 11
 -
 79 25
+59 11
 195 7
-empty
 -
 113 46
 empty
@@ -1911,10 +1911,10 @@ empty
 empty
 -
 90 35
-notinserted
+-
 -
 194 36
-empty
+137 4
 -
 173 32
 -
@@ -2359,11 +2359,11 @@ empty
 68 5
 7 0
 -
-notinserted
 -
+-
+137 38
 118 34
 30 3
-empty
 empty
 empty
 -
@@ -2761,13 +2761,13 @@ empty
 -
 -
 11 37
-notinserted
+-
 152 34
-34 25
+137 34
 -
 38 28
+34 25
 144 20
-empty
 -
 -
 -
@@ -3069,8 +3069,8 @@ empty
 empty
 empty
 empty
-notinserted
-empty
+-
+137 7
 -
 32 32
 -
@@ -3215,9 +3215,9 @@ empty
 empty
 -
 notupdated
-notinserted
+-
 6 39
-empty
+137 10
 empty
 -
 76 27
@@ -4443,11 +4443,11 @@ empty
 empty
 empty
 -
-notinserted
-170 25
+-
+137 44
 -
 27 31
-empty
+170 25
 -
 -
 -
@@ -4716,7 +4716,7 @@ notupdated
 171 41
 109 28
 -
-notinserted
+-
 158 46
 -
 -
@@ -4727,7 +4727,7 @@ notupdated
 88 17
 145 17
 139 14
-99 11
+137 11
 -
 -
 -
@@ -4747,11 +4747,11 @@ notupdated
 13 13
 -
 77 46
+99 11
 29 9
-40 7
 128 7
+40 7
 60 7
-194 5
 notupdated
 -
 67 36
@@ -4759,13 +4759,13 @@ notupdated
 -
 124 28
 79 5
+194 5
 144 3
-27 2
 -
 192 16
+27 2
 118 1
 100 1
-empty
 -
 -
 -
@@ -5601,11 +5601,11 @@ empty
 empty
 empty
 -
-notinserted
+-
 91 21
 -
 43 27
-empty
+137 19
 empty
 empty
 -
@@ -5658,7 +5658,7 @@ empty
 141 24
 empty
 -
-notinserted
+-
 -
 -
 28 45
@@ -5679,9 +5679,9 @@ notinserted
 143 27
 -
 176 35
+137 23
 26 22
 39 20
-30 3
 -
 -
 -
@@ -5707,15 +5707,15 @@ notinserted
 notupdated
 10 12
 156 8
+30 3
 98 0
-55 0
 -
 164 35
 -
 42 11
 -
 189 48
-empty
+55 0
 empty
 -
 62 38
@@ -7029,12 +7029,12 @@ empty
 -
 -
 82 44
-notinserted
+-
 85 29
 90 27
 -
 104 11
-empty
+137 6
 empty
 empty
 empty
@@ -7381,26 +7381,26 @@ empty
 75 7
 -
 -
-notinserted
+-
+-
+-
+-
+137 48
 -
 -
 -
 45 48
--
--
--
 119 36
 160 35
 113 27
 131 21
 26 16
-15 6
 -
 43 14
 -
 94 35
+15 6
 169 1
-empty
 empty
 empty
 -
@@ -7960,11 +7960,11 @@ empty
 12 20
 -
 23 27
-notinserted
 -
+-
+137 32
 81 18
 166 9
-empty
 -
 131 12
 empty
@@ -8074,9 +8074,9 @@ empty
 -
 133 26
 162 4
-notinserted
+-
+137 22
 142 0
-empty
 empty
 empty
 empty
@@ -9211,21 +9211,21 @@ empty
 161 39
 -
 79 31
-notinserted
+-
 -
 50 49
 183 24
 -
 -
+137 13
 148 13
-173 7
 -
 186 30
 -
 -
 48 27
 -
-notinserted
+-
 -
 189 42
 98 27
@@ -9247,13 +9247,13 @@ notinserted
 29 32
 -
 49 28
-118 3
+137 8
 -
 7 24
 -
 66 11
-empty
-empty
+173 7
+118 3
 -
 85 39
 empty

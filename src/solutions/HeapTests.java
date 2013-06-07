@@ -8,12 +8,14 @@ import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.util.Scanner;
 
+import org.javatuples.Pair;
+
 import tests.RunTests;
 import tests.Testable;
 import utils.FileUtilities;
 
 public class HeapTests implements Testable {
-
+	
 	@Override
 	public File generateOutput(File input) throws IOException {
 		Scanner in = new Scanner(input);
@@ -28,16 +30,18 @@ public class HeapTests implements Testable {
 				
 		fileStream.println("-");
 		
-		Heap heap;
+		HeapRevenge<Integer> heap;
 		
-		if(type_heap == "MIN")
-			heap = new HeapMin();
+		if(type_heap.equals("MIN"))
+			heap = new HeapMinRevenge<Integer>();
 		else
-			heap = new HeapMax();
-			
+			heap = new HeapMaxRevenge<Integer>();
+		
+		heap.setAcceptDuplicates(false);
+		
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
-					System.out.println(line);
+			
 			String[] split = line.split(" ");
 			
 			String command = split[0];
@@ -50,27 +54,30 @@ public class HeapTests implements Testable {
 			}
 			
 			if (command.equals("insert")) {
-				heap.insert(new Node<Integer>(param1, param2));
-				fileStream.println("-");
+				if (heap.insert(param1, param2))
+					fileStream.println("-");
+				else
+					fileStream.println("notinserted");
 			}
 			else if (command.equals("extract")) {
-				Node extract = heap.extract();
+				Pair<Integer, Integer> extract = heap.extract();
+				
 				if(extract == null)
 					fileStream.println("empty");
 				else
-					fileStream.println(extract.getId() + " " + extract.getValue());
+					fileStream.println(extract.getValue1() + " " + extract.getValue0());
 			}
 			else if (command.equals("decrease") || command.equals("increase")) {
-				Node update = heap.update(param1, param2);
-				if(update == null)
-					fileStream.println("notupdated");
+				if(heap.increasePriority(param1, param2))
+					fileStream.println("-");
 				else
-					fileStream.println(update.getId() + " " + update.getValue());
+					fileStream.println("notupdated");
 			}
 		}
-		
+
 		in.close();
 		fileStream.close();
+		
 		
 		return file;	
 	}
