@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.javatuples.Pair;
+
 public class Graph {
 	private Node[] nodes;
 	
@@ -56,7 +58,7 @@ public class Graph {
 			}
 		}
 		
-	return "No path";
+		return "No path";
 	}
 	
 	public String path(int i, int j) {
@@ -114,6 +116,14 @@ public class Graph {
 		System.out.println();
 	}
 
+	public String MSTbyKruskal(Graph graph) {
+		StringBuilder sb = new StringBuilder();
+		
+		HeapMinRevenge<Pair<Integer, Integer>> heap = new HeapMinRevenge<Pair<Integer, Integer>>();
+		
+		return sb.toString();
+	}
+	
 	private class Node {
 		private int key;
 		private int predecessor;

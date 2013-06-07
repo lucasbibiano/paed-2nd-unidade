@@ -1,0 +1,7 @@
+5
+edge 1 2
+edge 2 3
+edge 3 4
+shortest 1 4
+path 3 0
+shortest 3 0

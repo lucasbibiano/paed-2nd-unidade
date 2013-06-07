@@ -5,16 +5,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.List;
 import java.util.Scanner;
-
-import org.javatuples.Pair;
 
 import tests.RunTests;
 import tests.Testable;
 import utils.FileUtilities;
 
-public class GraphTests implements Testable {
+public class GraphTestsOld implements Testable {
 
 	@Override
 	public File generateOutput(File input) throws IOException {
@@ -31,7 +28,7 @@ public class GraphTests implements Testable {
 		
 		fileStream.println("-");
 		
-		GraphRevenge graph = new GraphRevenge(n);
+		Graph graph = new Graph(n);
 		
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
@@ -48,42 +45,10 @@ public class GraphTests implements Testable {
 				graph.addEdge(param2, param1);
 			}
 			else if (command.equals("shortest")) {
-				Pair<Integer, List<Integer>> pair = graph.shortest(param1, param2);
-				
-				if (pair.getValue1().isEmpty()) {
-					fileStream.print("No path");
-				}
-				else {
-					String prefix = "";
-					for (int i: pair.getValue1()) {
-						fileStream.print(prefix);
-						prefix = " ";
-						fileStream.print(i);
-					}
-					
-					fileStream.print(" " + pair.getValue0());
-				}
-
-				fileStream.println();
+				fileStream.println(graph.shortest(param1, param2));
 			}	
 			else if (command.equals("path")) {
-				Pair<Integer, List<Integer>> pair = graph.path(param1, param2);
-				
-				if (pair.getValue1().isEmpty()) {
-					fileStream.print("No path");
-				}
-				else {
-					String prefix = "";
-					for (int i: pair.getValue1()) {
-						fileStream.print(prefix);
-						prefix = " ";
-						fileStream.print(i);
-					}
-					
-					fileStream.print(" " + pair.getValue0());
-				}
-
-				fileStream.println();
+				fileStream.println(graph.path(param1, param2));
 			}
 		}
 		
@@ -96,7 +61,7 @@ public class GraphTests implements Testable {
 	public static void main(String[] args) {
 		System.out.println("GRAFOS\n======================\n\n");
 		
-		RunTests tests = new RunTests(new GraphTests(), "grafos");
+		RunTests tests = new RunTests(new GraphTestsOld(), "grafos");
 		
 		try {
 			tests.runTests();
