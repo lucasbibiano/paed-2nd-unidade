@@ -30,12 +30,13 @@ public class RunTests {
 	public void runTests() throws IOException, InterruptedException {
 		File folder = new File(dir);
 		File[] files = folder.listFiles();
-
+		
 		for (File file : files) {
 			File outputFile = null;
-			
+
 			if (file.getName().endsWith(".in")) {
 				outputFile = testable.generateOutput(file);
+				
 			
 				System.out.println("Test " + file.getName() + "\n======================\n");
 				
