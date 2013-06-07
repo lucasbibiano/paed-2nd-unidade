@@ -55,7 +55,9 @@ public class GraphListRevenge {
 					aux = predecessors[predecessor];
 				} while (aux != predecessor);
 				
-				for (l = l - 1; l >= 0; l--)
+				l--;
+				
+				for (; l >= 0; l--)
 					result.add(path[l]);
 				
 				return new Pair<Integer, List<Integer>>(costs[j], result);

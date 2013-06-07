@@ -135,24 +135,28 @@ public class GraphMatrixRevenge {
 	}
 	
 	public Pair<Integer, List<Integer>> dijkstra(int i, int j) {
-		boolean[] visited = new boolean[adjacencyMatrix.length];
 		int[] predecessors = new int [adjacencyMatrix.length];
 		int[] costs = new int[adjacencyMatrix.length];
 
 		List<Integer> result = new ArrayList<Integer>();
 		
+		HeapMinRevenge<Integer> heap = new HeapMinRevenge<Integer>();
+		
 		for (int k = 0; k < adjacencyMatrix.length; k++) {
 			predecessors[k] = k;
-			costs[k] = 0;
+			costs[k] = Integer.MAX_VALUE;
+			
+			if (k == i)
+				costs[k] = 0;
+			
+			heap.insert(k, costs[k]);
 		}
 		
-		HeapMinRevenge<Integer> heap = new HeapMinRevenge<Integer>();
-		heap.insert(i, 0);
-		
 		while (!heap.isEmpty()) {
-			int node = heap.extract().getValue0();
+			int node = heap.extract().getValue1();
 
-			visited[node] = true;			
+			if (costs[node] == Integer.MAX_VALUE)
+				break;
 			
 			if (node == j) {
 				int l = 0;
@@ -179,13 +183,17 @@ public class GraphMatrixRevenge {
 			}
 			
 			for (int k = 0; k < adjacencyMatrix.length; k++) {
-				if (visited[k] || adjacencyMatrix[node][k] == 0)
+				if (adjacencyMatrix[node][k] == 0)
 					continue;
 				
-				predecessors[k] = node;
-				costs[k] = costs[node] + adjacencyMatrix[node][k];
+				int cost = costs[node] + adjacencyMatrix[node][k];
+				
+				if (cost < costs[k]) {
+					predecessors[k] = node;
+					costs[k] = cost;
+					heap.increasePriority(k, costs[k]);
+				}
 
-				heap.insert(k, costs[k]);
 			}
 		}
 		

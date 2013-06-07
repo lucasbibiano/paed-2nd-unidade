@@ -1,6 +1,5 @@
 package solutions;
 
-import java.util.ArrayList;
 
 
 public class DisjointSet {
