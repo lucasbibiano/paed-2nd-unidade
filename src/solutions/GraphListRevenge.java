@@ -41,17 +41,21 @@ public class GraphListRevenge {
 			
 			if (node.i == j) {
 				int l = 0;
+				int predecessor;
+				int aux;
 				int[] path = new int[nodes.length];
 				
-				path[l++] = j;
+				aux = j;
+				predecessor = predecessors[aux];
 				
-				while (predecessors[l - 1] != predecessors[l - 1]) {
-					path[l++] = predecessors[l - 1];
-				}
+				do {
+					path[l++] = aux;
+					
+					predecessor = aux;
+					aux = predecessors[predecessor];
+				} while (aux != predecessor);
 				
-				path[l] = i;
-				
-				for (; l >= 0; l--)
+				for (l = l - 1; l >= 0; l--)
 					result.add(path[l]);
 				
 				return new Pair<Integer, List<Integer>>(costs[j], result);
@@ -93,15 +97,21 @@ public class GraphListRevenge {
 			
 			if (node.i == j) {
 				int l = 0;
+				int predecessor;
+				int aux;
 				int[] path = new int[nodes.length];
 				
-				path[l++] = j;
+				aux = j;
+				predecessor = predecessors[aux];
 				
-				while (predecessors[l - 1] != predecessors[l - 1]) {
-					path[l++] = predecessors[l - 1];
-				}
+				do {
+					path[l++] = aux;
+					
+					predecessor = aux;
+					aux = predecessors[predecessor];
+				} while (aux != predecessor);
 				
-				path[l] = i;
+				l--;
 				
 				for (; l >= 0; l--)
 					result.add(path[l]);
@@ -145,15 +155,21 @@ public class GraphListRevenge {
 			
 			if (node.i == j) {
 				int l = 0;
+				int predecessor;
+				int aux;
 				int[] path = new int[nodes.length];
 				
-				path[l++] = j;
+				aux = j;
+				predecessor = predecessors[aux];
 				
-				while (predecessors[l - 1] != predecessors[l - 1]) {
-					path[l++] = predecessors[l - 1];
-				}
+				do {
+					path[l++] = aux;
+					
+					predecessor = aux;
+					aux = predecessors[predecessor];
+				} while (aux != predecessor);
 				
-				path[l] = i;
+				l--;
 				
 				for (; l >= 0; l--)
 					result.add(path[l]);
@@ -190,6 +206,16 @@ public class GraphListRevenge {
 		public Node(int i) {
 			this.i = i;
 			adjacencyList = new LinkedList<Connection>();
+		}
+		
+		public boolean equals(Object other) {
+			Node h = (Node) other;
+			return i == h.i;
+		}
+		
+		@Override
+		public int hashCode() {
+			return new Integer(i).hashCode();
 		}
 	}
 	

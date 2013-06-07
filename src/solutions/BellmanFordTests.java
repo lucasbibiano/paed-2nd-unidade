@@ -14,13 +14,13 @@ import tests.RunTests;
 import tests.Testable;
 import utils.FileUtilities;
 
-public class DijkstraTests implements Testable {
+public class BellmanFordTests implements Testable {
 
 	@Override
 	public File generateOutput(File input) throws IOException {
 		Scanner in = new Scanner(input);
 		
-		File file = new File("tests/dijkstra/" + 
+		File file = new File("tests/bellmanford/" + 
 			FileUtilities.stripExtension(input.getName()) + ".out.ours");
 		
 		PrintStream fileStream = new PrintStream(new BufferedOutputStream(
@@ -43,13 +43,12 @@ public class DijkstraTests implements Testable {
 			int param2 = Integer.parseInt(split[2]);
 
 			if (command.equals("edge")) {
-				int param3 = Integer.parseInt(split[3]);
-
 				fileStream.println("-");
-				graph.addEdge(param1, param2, param3);
+				graph.addEdge(param1, param2);
+				graph.addEdge(param2, param1);
 			}
 			else if (command.equals("shortest")) {
-				Pair<Integer, List<Integer>> pair = graph.dijkstra(param1, param2);
+				Pair<Integer, List<Integer>> pair = graph.bellmanFord(param1, param2);
 				
 				if (pair.getValue1().isEmpty()) {
 					fileStream.print("No path");
@@ -67,6 +66,9 @@ public class DijkstraTests implements Testable {
 
 				fileStream.println();
 			}	
+			else if (command.equals("hasNegativeCicle")) {
+				fileStream.println(graph.hasNegativeCycle());
+			}
 		}
 		
 		in.close();
@@ -76,9 +78,9 @@ public class DijkstraTests implements Testable {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("DIJKSTRA\n======================\n\n");
+		System.out.println("BELLMAN-FORD\n======================\n\n");
 		
-		RunTests tests = new RunTests(new DijkstraTests(), "dijkstra");
+		RunTests tests = new RunTests(new BellmanFordTests(), "bellmanford");
 		
 		try {
 			tests.runTests();
