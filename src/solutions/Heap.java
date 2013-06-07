@@ -68,12 +68,12 @@ public abstract class Heap<T> {
 		else if (leftChild == null)
 			return rightChild;
 		else if (rightChild == null)
-			return rightChild;
+			return leftChild;
 		else 
 			return appropriateNode(leftChild, rightChild);
 	}
 	
-	protected void heapfy(Node<T> node){
+	protected void heapfy(Node<T> node){			
 		Node<T> child = compareChildren(node);
 		if (child == null)
 			return;
@@ -86,12 +86,16 @@ public abstract class Heap<T> {
 	public void swap(Node<T> node, Node<T> parent){
 		int indexNode = node.getPosition();
 		int indexParent = parent.getPosition();
+
+		int aux = indexNode;
+		indexNode = indexParent;
+		indexNode = aux;
 		
-		nodes.set(indexParent, node);
-		nodes.set(indexNode, parent);
+		nodes.set(indexNode, node);
+		nodes.set(indexParent, parent);
 		
-		node.setPosition(indexParent);
-		parent.setPosition(indexNode);
+		node.setPosition(indexNode);
+		parent.setPosition(indexParent);
 	}
 	
 	public boolean search(T value){
@@ -111,7 +115,7 @@ public abstract class Heap<T> {
 	}
 	
 	public void insert(Node<T> node){
-		if(searchId(node.getId()) == null)
+		if(searchId(node.getId()) != null)
 			return;
 
 		node.setPosition(nodes.size());

@@ -1,5 +1,7 @@
 package solutions;
 
+import java.util.ArrayList;
+
 
 public class DisjointSet {
 	private DisjointSet representative;
@@ -39,7 +41,7 @@ public class DisjointSet {
 	public DisjointSet getRepresentative() {
 		DisjointSet lastRep = this;
 		
-		while (representative.getKey() != lastRep.getKey()) {
+		if (representative.getKey() != lastRep.getKey()) {
 			lastRep = representative;
 			setRepresentative(representative.getRepresentative());
 		}
