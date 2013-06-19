@@ -287,11 +287,16 @@ public class GraphMatrixRevenge {
 				costs[k] = 999999;
 		}
 		
-		for (int k = 0; k < adjacencyMatrix.length; k++) {
+		boolean relaxed = true;
+		
+		for (int k = 0; k < adjacencyMatrix.length && relaxed; k++) {
+			relaxed = false;
+			
 			for (Edge edge: edges) {
 				if (costs[edge.i] + edge.cost < costs[edge.j]) {
 					costs[edge.j] = costs[edge.i] + edge.cost;
 					predecessors[edge.j] = edge.i;
+					relaxed = true;
 				}
 			}
 		}
