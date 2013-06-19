@@ -1,6 +1,7 @@
 package solutions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -212,14 +213,19 @@ public class GraphMatrixRevenge {
 			if (k == i)
 				costs[k] = 0;
 			else
-				costs[k] = -Integer.MAX_VALUE;
+				costs[k] = 999999;
 		}
 		
-		for (int k = 0; k < adjacencyMatrix.length; k++) {
+		boolean relaxed = true;
+		
+		for (int k = 0; k < adjacencyMatrix.length && relaxed; k++) {
+			relaxed = false;
+			
 			for (Edge edge: edges) {
 				if (costs[edge.i] + edge.cost < costs[edge.j]) {
-					costs[edge.i] = costs[edge.j] + edge.cost;
-					predecessors[edge.i] = edge.j;
+					costs[edge.j] = costs[edge.i] + edge.cost;
+					predecessors[edge.j] = edge.i;
+					relaxed = true;
 				}
 			}
 		}
@@ -228,6 +234,32 @@ public class GraphMatrixRevenge {
 			if (costs[edge.i] + edge.cost < costs[edge.j]) {
 				return new Pair<Integer, List<Integer>>(-Integer.MAX_VALUE, result);
 			}
+		}
+		
+		int l = 0;
+		int predecessor;
+		int aux;
+		int[] path = new int[adjacencyMatrix.length];
+		
+		//System.out.println(Arrays.toString(predecessors));
+		//System.out.println(Arrays.toString(costs));
+
+		aux = j;
+		predecessor = predecessors[aux];
+		
+		do {
+			path[l++] = aux;
+			
+			predecessor = aux;
+			aux = predecessors[predecessor];
+			
+		} while (aux != predecessor);
+		
+		l--;
+		
+		if (aux == i) {
+			for (; l >= 0; l--)
+				result.add(path[l]);
 		}
 		
 		return new Pair<Integer, List<Integer>>(costs[j], result);
@@ -252,14 +284,19 @@ public class GraphMatrixRevenge {
 			if (k == i)
 				costs[k] = 0;
 			else
-				costs[k] = -Integer.MAX_VALUE;
+				costs[k] = 999999;
 		}
 		
-		for (int k = 0; k < adjacencyMatrix.length; k++) {
+		boolean relaxed = true;
+		
+		for (int k = 0; k < adjacencyMatrix.length && relaxed; k++) {
+			relaxed = false;
+			
 			for (Edge edge: edges) {
 				if (costs[edge.i] + edge.cost < costs[edge.j]) {
-					costs[edge.i] = costs[edge.j] + edge.cost;
-					predecessors[edge.i] = edge.j;
+					costs[edge.j] = costs[edge.i] + edge.cost;
+					predecessors[edge.j] = edge.i;
+					relaxed = true;
 				}
 			}
 		}

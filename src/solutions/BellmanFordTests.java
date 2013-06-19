@@ -39,15 +39,19 @@ public class BellmanFordTests implements Testable {
 			String[] split = line.split(" ");
 			
 			String command = split[0];
-			int param1 = Integer.parseInt(split[1]);
-			int param2 = Integer.parseInt(split[2]);
-
+			
 			if (command.equals("edge")) {
+				int param1 = Integer.parseInt(split[1]);
+				int param2 = Integer.parseInt(split[2]);				
+				int param3 = Integer.parseInt(split[3]);
+
 				fileStream.println("-");
-				graph.addEdge(param1, param2);
-				graph.addEdge(param2, param1);
+				graph.addEdge(param1, param2, param3);
 			}
 			else if (command.equals("shortest")) {
+				int param1 = Integer.parseInt(split[1]);
+				int param2 = Integer.parseInt(split[2]);
+				
 				Pair<Integer, List<Integer>> pair = graph.bellmanFord(param1, param2);
 				
 				if (pair.getValue1().isEmpty()) {
