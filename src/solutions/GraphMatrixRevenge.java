@@ -213,7 +213,7 @@ public class GraphMatrixRevenge {
 			if (k == i)
 				costs[k] = 0;
 			else
-				costs[k] = 9999;
+				costs[k] = 999999;
 		}
 		
 		boolean relaxed = true;
@@ -228,14 +228,10 @@ public class GraphMatrixRevenge {
 					relaxed = true;
 				}
 			}
-			
-			System.out.println(Arrays.toString(costs));
-
 		}
 		
 		for (Edge edge: edges) {
 			if (costs[edge.i] + edge.cost < costs[edge.j]) {
-				System.out.printf("Relaxou %d %d\n", costs[edge.i] + edge.cost, costs[edge.j]);
 				return new Pair<Integer, List<Integer>>(-Integer.MAX_VALUE, result);
 			}
 		}
@@ -261,8 +257,10 @@ public class GraphMatrixRevenge {
 		
 		l--;
 		
-		for (; l >= 0; l--)
-			result.add(path[l]);
+		if (aux == i) {
+			for (; l >= 0; l--)
+				result.add(path[l]);
+		}
 		
 		return new Pair<Integer, List<Integer>>(costs[j], result);
 	}
@@ -286,7 +284,7 @@ public class GraphMatrixRevenge {
 			if (k == i)
 				costs[k] = 0;
 			else
-				costs[k] = 9999;
+				costs[k] = 999999;
 		}
 		
 		for (int k = 0; k < adjacencyMatrix.length; k++) {

@@ -40,8 +40,6 @@ public class BellmanFordTests implements Testable {
 			
 			String command = split[0];
 			
-			System.out.println(line);
-
 			if (command.equals("edge")) {
 				int param1 = Integer.parseInt(split[1]);
 				int param2 = Integer.parseInt(split[2]);				
@@ -49,7 +47,6 @@ public class BellmanFordTests implements Testable {
 
 				fileStream.println("-");
 				graph.addEdge(param1, param2, param3);
-				graph.addEdge(param2, param1, param3);
 			}
 			else if (command.equals("shortest")) {
 				int param1 = Integer.parseInt(split[1]);
