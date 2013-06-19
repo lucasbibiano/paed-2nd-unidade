@@ -1,5 +1,7 @@
 package solutions;
 
+import java.util.Queue;
+
 public class GraphMatrix {
 	private int n;
 	
@@ -16,8 +18,10 @@ public class GraphMatrix {
 	}
 	
 	public String shortest(int i, int j) {
-		return null;
+
+		Queue<Integer> adjacents;
 		
+		return "";
 	}
 	
 	public String path(int i, int j) {
