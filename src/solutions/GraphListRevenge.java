@@ -8,8 +8,6 @@ import java.util.Stack;
 
 import org.javatuples.Pair;
 
-import solutions.GraphMatrixRevenge.Edge;
-
 public class GraphListRevenge {
 	private Node[] nodes;
 	

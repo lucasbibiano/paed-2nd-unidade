@@ -1,7 +1,7 @@
 package solutions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -240,9 +240,6 @@ public class GraphMatrixRevenge {
 		int predecessor;
 		int aux;
 		int[] path = new int[adjacencyMatrix.length];
-		
-		//System.out.println(Arrays.toString(predecessors));
-		//System.out.println(Arrays.toString(costs));
 
 		aux = j;
 		predecessor = predecessors[aux];
@@ -266,10 +263,8 @@ public class GraphMatrixRevenge {
 	}
 	
 	public boolean hasNegativeCycle() {
-		for (int i = 0; i < adjacencyMatrix.length; i++) {
-			if (hasNegativeCycleHelper(i))
-				return true;
-		}
+		if (hasNegativeCycleHelper(0))
+			return true;
 		
 		return false;
 	}
@@ -308,6 +303,77 @@ public class GraphMatrixRevenge {
 		}
 		
 		return false;
+	}
+	
+	public Pair<Integer, List<Integer>> floydWarshall(int i, int j) {
+		int[][] costs = new int[adjacencyMatrix.length][adjacencyMatrix.length];
+		int[][] nexts = new int[adjacencyMatrix.length][adjacencyMatrix.length];
+		
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+		for (int k = 0; k < adjacencyMatrix.length; k++) {
+			for (int l = 0; l < adjacencyMatrix.length; l++) {
+				costs[k][l] = k == l ? 0 : 99999;
+				nexts[k][l] = -1;
+			}
+		}
+		
+		for (Edge edge: edges) {
+			costs[edge.i][edge.j] = edge.cost;
+		}
+		
+		for (int k = adjacencyMatrix.length - 1; k >= 0; k--)
+			for (int l = adjacencyMatrix.length - 1; l >= 0; l--)
+				for (int m = adjacencyMatrix.length - 1; m >= 0; m--) {
+					if (costs[l][k] + costs[k][m] < costs[l][m]) {
+						costs[l][m] = costs[l][k] + costs[k][m];
+						nexts[l][m] = k;
+					}
+				}
+
+		if (costs[i][j] == 99999) {
+			return new Pair<Integer, List<Integer>>(-1, result);
+		}
+		
+		findCheapestPath(i, j, nexts, result);
+
+		result.add(j);
+		
+		return new Pair<Integer, List<Integer>>(costs[i][j], result);
+	}	
+		
+	public List<Integer> findCheapestPath(int u, int v, int[][] nexts, List<Integer> pathList)
+	{
+	    int intermediate = nexts[u][v];
+	    
+	    if (intermediate == -1) {
+	        pathList.add(u);
+	        return pathList;
+	    } else {
+	        findCheapestPath(u, intermediate, nexts, pathList);
+	        findCheapestPath(intermediate, v, nexts, pathList);
+	    }
+	    
+	    return pathList;
+	}
+	
+	public Pair<Integer, List<Integer>> floydPath(int[][] costs, int[][] nexts, int i, int j, LinkedHashSet<Integer> path) {
+		if (costs[i][j] == 99999)
+			return new Pair<Integer, List<Integer>>(-1, new ArrayList<Integer>());
+		
+		int intermediate = nexts[i][j];
+		
+		if (intermediate == -1) {
+			ArrayList<Integer> list = new ArrayList<Integer>(path);
+			return new Pair<Integer, List<Integer>>(costs[i][j], list);
+		}
+		else {
+			path.addAll(floydPath(costs, nexts, i, intermediate, path).getValue1());
+			path.addAll(floydPath(costs, nexts, intermediate, j, path).getValue1());
+
+			ArrayList<Integer> list = new ArrayList<Integer>(path);
+			return new Pair<Integer, List<Integer>>(costs[i][j], list);
+		}
 	}
 	
 	public void addEdge(int i, int j) {
