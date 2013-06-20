@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import solutions.GraphMatrixRevenge.Edge;
 import tests.RunTests;
 import tests.Testable;
 import utils.FileUtilities;
@@ -25,14 +26,8 @@ public class KruskalPrimTests implements Testable {
 		
 		int n = in.nextInt();
 		in.nextLine();
-		
-		fileStream.println("-");
-		
-		DisjointSet[] sets = new DisjointSet[n];
-		
-		for (int i = 0; i < n; i++)	{
-			sets[i] = new DisjointSet(i);
-		}
+				
+		GraphMatrixRevenge graph = new GraphMatrixRevenge(n);
 		
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
@@ -40,15 +35,32 @@ public class KruskalPrimTests implements Testable {
 			String[] split = line.split(" ");
 			
 			String command = split[0];
-			int param1 = Integer.parseInt(split[1]);
-			int param2 = Integer.parseInt(split[2]);
 
-			if (command.equals("compare")) {
-				fileStream.println(sets[param1].compare(sets[param2]));
+			if (command.equals("edge")) {
+				int param1 = Integer.parseInt(split[1]);
+				int param2 = Integer.parseInt(split[2]);				
+				int param3 = Integer.parseInt(split[3]);
+
+				graph.addEdge(param1, param2, param3);
+				graph.addEdge(param2, param1, param3);
 			}
-			else if (command.equals("union")) {
-				fileStream.println("-");
-				sets[param1].union(sets[param2]);
+			else if (command.equals("kruskal")) {
+				int totalCost = 0;
+				for (Edge edge: graph.kruskal()) {
+					totalCost += edge.cost;
+					fileStream.println(edge.i + " " + edge.j);
+				}
+				
+				fileStream.println(totalCost);
+			}
+			else if (command.equals("prim")) {
+				int totalCost = 0;
+				for (Edge edge: graph.prim()) {
+					totalCost += edge.cost;
+					fileStream.println(edge.i + " " + edge.j);
+				}
+				
+				fileStream.println(totalCost);
 			}	
 		}
 		
@@ -59,9 +71,9 @@ public class KruskalPrimTests implements Testable {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("CONJUNTOS\n======================\n\n");
+		System.out.println("KRUSKAL E PRIM\n======================\n\n");
 		
-		RunTests tests = new RunTests(new DisjointSetTests(), "conjuntos", true);
+		RunTests tests = new RunTests(new KruskalPrimTests(), "kruskalprim", true);
 		
 		try {
 			tests.runTests();

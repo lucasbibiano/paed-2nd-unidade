@@ -376,6 +376,71 @@ public class GraphMatrixRevenge {
 		}
 	}
 	
+	public List<Edge> kruskal() {
+		HeapMinRevenge<Edge> heap = new HeapMinRevenge<Edge>();
+		List<Edge> result = new ArrayList<Edge>();
+		
+		for (Edge edge: edges) {
+			heap.insert(edge, edge.cost);
+		}
+		
+		DisjointSet[] sets = new DisjointSet[adjacencyMatrix.length];
+		
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			sets[i] = new DisjointSet(i);
+		}
+		
+		while (!heap.isEmpty()) {
+			Edge edge = heap.extract().getValue1();
+
+			if (!sets[edge.j].compare(sets[edge.i])) {
+				result.add(edge);
+				sets[edge.i].union(sets[edge.j]);
+			}
+		}
+		
+		return result;
+	}
+	
+	public List<Edge> prim() {
+		HeapMinRevenge<Integer> heap = new HeapMinRevenge<Integer>();
+		List<Edge> result = new ArrayList<Edge>();
+		int[] costs = new int[adjacencyMatrix.length];
+		int[] preds = new int[adjacencyMatrix.length];
+		boolean[] visited = new boolean[adjacencyMatrix.length];
+		
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			costs[i] = 99999;
+		}
+		
+		costs[0] = 0;
+		
+		heap.insert(0, costs[0]);
+		
+		while (!heap.isEmpty()) {
+			int v = heap.extract().getValue1();
+			
+			if (visited[v])
+				continue;
+			
+			for (int i = 0; i < adjacencyMatrix.length; i++) {
+				if (adjacencyMatrix[v][i] != 0) {
+					if (adjacencyMatrix[v][i] < costs[i]) {
+						preds[i] = v;
+						costs[i] = adjacencyMatrix[v][i];
+						heap.insert(i, costs[i]);
+					}
+				}
+			}
+		}
+		
+		for (int i = 1; i < adjacencyMatrix.length; i++) {
+			result.add(new Edge(i, preds[i], adjacencyMatrix[i][preds[i]]));
+		}
+		
+		return result;
+	}
+	
 	public void addEdge(int i, int j) {
 		adjacencyMatrix[i][j] = 1;
 		edges.add(new Edge(i, j, 1));
@@ -391,7 +456,7 @@ public class GraphMatrixRevenge {
 		List<Connection> adjacencyList;
 	}
 	
-	private class Edge {
+	public class Edge {
 		int i;
 		int j;
 		int cost;
